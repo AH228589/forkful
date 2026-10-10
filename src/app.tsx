@@ -1,6 +1,7 @@
 import { useEffect } from 'preact/hooks'
 import { Icon, Logo } from './components/Icon'
 import { QuickAddSheet, StepsSheet, WaterSheet, WeightSheet } from './components/Sheets'
+import { AccountSheet } from './components/Account'
 import { AskHost, Menu } from './components/ui'
 import { today } from './lib/dates'
 import { go, route } from './lib/router'
@@ -53,7 +54,14 @@ export function App() {
       </div>
     )
 
-  if (!profile.value) return <Onboarding />
+  if (!profile.value)
+    return (
+      <>
+        <Onboarding />
+        <AccountSheet />
+        <AskHost />
+      </>
+    )
 
   const day = query.get('day') || diaryDay.value || today()
   const meal = Number(query.get('meal') ?? 0)
@@ -161,6 +169,7 @@ export function App() {
       {s?.kind === 'water' && <WaterSheet day={s.day} onClose={close} />}
       {s?.kind === 'weight' && <WeightSheet onClose={close} />}
       {s?.kind === 'steps' && <StepsSheet day={s.day} onClose={close} />}
+      <AccountSheet />
       <AskHost />
       {toast.value && (
         <div class="toast" key={toast.value.id} role="status">

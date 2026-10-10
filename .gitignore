@@ -5,3 +5,9 @@ dist
 .DS_Store
 
 .vercel
+.env*
+
+# agent skills installed by the Vercel CLI
+.agents
+.claude
+skills-lock.json

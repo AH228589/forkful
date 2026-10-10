@@ -1,5 +1,6 @@
 import { Icon } from '../components/Icon'
 import { Card, Page, Row } from '../components/ui'
+import { account, cloudAvailable } from '../lib/account'
 import { today } from '../lib/dates'
 import { kcalGoal } from '../lib/goals'
 import { activeFast, currentWeight, foods, meals, profile, recipes, streak } from '../lib/store'
@@ -44,10 +45,11 @@ export function More() {
         <Row icon="dumbbell" title="Log exercise" href={`#/exercise?day=${today()}`} />
       </div>
       <div class="card flush">
+        {cloudAvailable && <Row icon="upload" title="Account and backup" sub={account.value.id ? `Signed in as ${account.value.email}` : 'Not backed up yet. Create a free account.'} href="#/settings" />}
         <Row icon="bell" title="Reminders" href="#/settings" />
         <Row icon="settings" title="Settings" sub="Units, diary, data export and backup" href="#/settings" />
       </div>
-      <p class="tiny muted center-t">Forkful · your data stays on this device</p>
+      <p class="tiny muted center-t">Forkful · {account.value.id ? 'synced to your account' : 'data stored on this phone'}</p>
     </Page>
   )
 }

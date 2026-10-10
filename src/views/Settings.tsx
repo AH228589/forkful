@@ -1,5 +1,7 @@
 import { useState } from 'preact/hooks'
+import { AccountCard } from '../components/Account'
 import { Icon } from '../components/Icon'
+import { account, cloudAvailable } from '../lib/account'
 import { Card, Chip, Field, Page, Row, Seg, Switch, confirmBox, promptBox } from '../components/ui'
 import { today } from '../lib/dates'
 import { dbSource } from '../lib/foods'
@@ -52,6 +54,13 @@ export function SettingsView() {
 
   return (
     <Page title="Settings" backTo="/more">
+      {cloudAvailable && (
+        <>
+          <div class="section-t">Account</div>
+          <AccountCard />
+        </>
+      )}
+
       <div class="section-t">Appearance</div>
       <Card>
         <Seg
@@ -230,7 +239,7 @@ export function SettingsView() {
       </Card>
       <Card title="Backup">
         <p class="small muted" style={{ marginTop: 0 }}>
-          Everything lives on this phone only. Save a backup now and then, and before you clear the browser or switch phones.
+          {account.value.id ? 'Your account already keeps a synced copy. A backup file is an extra copy you control.' : 'Without an account everything lives on this phone only. Save a backup now and then, and before you clear the browser or switch phones.'}
         </p>
         <div class="grid2" style={{ gap: '0.5rem' }}>
           <button
@@ -276,7 +285,7 @@ export function SettingsView() {
           <Icon name="upload" size={0.9} /> Import a CSV file
         </button>
       </Card>
-      <button
+      {!account.value.id && <button
         class="btn ghost danger block"
         onClick={async () => {
           if (!(await confirmBox('Delete all data?', 'Your diary, foods, recipes, weigh-ins, photos and goals will be erased from this phone. This cannot be undone.', 'Delete everything', true))) return
@@ -287,12 +296,12 @@ export function SettingsView() {
         }}
       >
         <Icon name="trash" size={1} /> Delete all data
-      </button>
+      </button>}
 
       <div class="section-t">About</div>
       <Card>
         <p class="small" style={{ marginTop: 0 }}>
-          <b>Forkful</b> is a private food diary. No account, no ads, no tracking. Your data never leaves this device unless you export it.
+          <b>Forkful</b> is a private food diary. No ads, no tracking. Without an account your data never leaves this phone; with one, it is stored in your private account so it is never lost.
         </p>
         <p class="tiny muted">
           Food data: {dbSource()}. Brand and barcode data from Open Food Facts (openfoodfacts.org), available under the Open Database License. Exercise estimates use MET values from the Compendium of Physical Activities. Calorie needs use the Mifflin-St Jeor equation.

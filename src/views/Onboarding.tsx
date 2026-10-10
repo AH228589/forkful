@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks'
 import { Icon, Logo } from '../components/Icon'
+import { accountSheet, cloudAvailable } from '../lib/account'
 import { Field, Num, Seg } from '../components/ui'
 import { today } from '../lib/dates'
 import { ACTIVITY, calcGoal, maintenance } from '../lib/goals'
@@ -74,7 +75,12 @@ export function Onboarding() {
               <Logo size={4} />
             </div>
             <h1>Welcome to Forkful</h1>
-            <p class="muted">Track meals, calories, macros, water, exercise and weight. Everything stays on your phone, and every feature is free.</p>
+            <p class="muted">Track meals, calories, macros, water, exercise and weight. Every feature is free, and a free account keeps your progress backed up.</p>
+            {cloudAvailable && (
+              <button class="btn outline block" style={{ marginBottom: '1rem' }} onClick={() => (accountSheet.value = 'signin')}>
+                <Icon name="user" size={1} /> I already have an account
+              </button>
+            )}
             <Field label="What should we call you? (optional)">
               <input class="input" value={name} onInput={(e) => setName((e.currentTarget as HTMLInputElement).value)} placeholder="Your name" />
             </Field>

@@ -64,6 +64,7 @@ const P: Record<string, string> = {
   moon: 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z',
   grip: 'M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01',
   refresh: 'M20 11a8 8 0 0 0-14.8-4M4 4v4h4M4 13a8 8 0 0 0 14.8 4M20 20v-4h-4',
+  eye: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
 }
 
 export function Icon({ name, size = 1.25, fill, stroke = 2, class: cls, style }: { name: string; size?: number; fill?: boolean; stroke?: number; class?: string; style?: JSX.CSSProperties }) {
