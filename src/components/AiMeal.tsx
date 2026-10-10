@@ -226,7 +226,7 @@ export function AiMealSheet({ day, meal: initialMeal, onClose, shared }: { day: 
             )}
           </button>
           <p class="tiny muted center-t">
-            Tip: in Glovo or Wolt, take a screenshot of the order and use Share, then Forkful. Estimates are a starting point; adjust the grams if a portion looks off.
+            Tip: in Glovo or Wolt, take a screenshot of the order and use Share, then Forkful. Estimates are a starting point; adjust the grams if a portion looks off. Images go to Google's Gemini AI, so crop out your name and address.
           </p>
         </>
       )}
