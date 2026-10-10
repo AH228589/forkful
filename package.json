@@ -10,10 +10,12 @@
     "foods": "node scripts/build-foods.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
     "@preact/signals": "^2.11.3",
     "@supabase/supabase-js": "^2.117.3",
     "barcode-detector": "^3.2.2",
-    "preact": "^10.29.8"
+    "preact": "^10.29.8",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.6",

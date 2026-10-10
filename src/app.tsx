@@ -73,7 +73,7 @@ export function App() {
       view = <Diary />
       break
     case 'add':
-      view = <AddFood day={day} meal={meal} tab={(query.get('tab') as 'all') || 'all'} scan={query.get('scan') === '1'} voice={query.get('voice') === '1'} />
+      view = <AddFood day={day} meal={meal} tab={(query.get('tab') as 'all') || 'all'} scan={query.get('scan') === '1'} voice={query.get('voice') === '1'} ai={query.get('ai') === '1'} shared={query.get('shared') === '1'} />
       nav = false
       break
     case 'exercise':
@@ -153,6 +153,7 @@ export function App() {
           title={`Log for ${d === today() ? 'today' : d}`}
           onClose={close}
           items={[
+            { icon: 'sparkle', label: 'Snap or describe a meal (AI)', fn: () => go(`/add?day=${d}&meal=${guessMeal()}&ai=1`) },
             { icon: 'search', label: 'Log food', fn: () => go(`/add?day=${d}&meal=${guessMeal()}`) },
             { icon: 'scan', label: 'Scan a barcode', fn: () => go(`/add?day=${d}&meal=${guessMeal()}&scan=1`) },
             { icon: 'mic', label: 'Voice log', fn: () => go(`/add?day=${d}&meal=${guessMeal()}&voice=1`) },

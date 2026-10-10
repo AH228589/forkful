@@ -11,7 +11,7 @@ export interface Unit {
   g?: number
 }
 
-export type FoodSource = 'usda' | 'off' | 'custom' | 'recipe' | 'quick'
+export type FoodSource = 'usda' | 'off' | 'custom' | 'recipe' | 'quick' | 'ai'
 
 export interface Food {
   id: string

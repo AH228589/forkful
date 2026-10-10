@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
+import { AiMealSheet } from '../components/AiMeal'
 import { FoodSheet } from '../components/FoodSheet'
 import { FoodRow, MatchList, SearchResults } from '../components/FoodSearch'
 import { Icon } from '../components/Icon'
@@ -15,13 +16,14 @@ import { eUnit, fmtE } from '../lib/units'
 
 type Tab = 'all' | 'meals' | 'recipes' | 'foods'
 
-export function AddFood({ day, meal: initialMeal, tab: initialTab, scan, voice }: { day: Day; meal: number; tab: Tab; scan: boolean; voice: boolean }) {
+export function AddFood({ day, meal: initialMeal, tab: initialTab, scan, voice, ai, shared }: { day: Day; meal: number; tab: Tab; scan: boolean; voice: boolean; ai?: boolean; shared?: boolean }) {
   const [meal, setMeal] = useState(Math.min(initialMeal, settings.value.meals.length - 1))
   const [q, setQ] = useState('')
   const [tab, setTab] = useState<Tab>(initialTab)
   const [open, setOpen] = useState<Item | null>(null)
   const [scanning, setScanning] = useState(scan)
   const [listening, setListening] = useState(voice)
+  const [aiOpen, setAiOpen] = useState(!!ai)
   const [sort, setSort] = useState<'recent' | 'frequent'>('recent')
   const [multi, setMulti] = useState<string[]>([])
   const [looking, setLooking] = useState(false)
@@ -92,6 +94,11 @@ export function AddFood({ day, meal: initialMeal, tab: initialTab, scan, voice }
       ) : (
         <>
           <div class="chips" style={{ margin: '0.85rem 0' }}>
+            <Chip onClick={() => setAiOpen(true)}>
+              <span class="row gap-xs">
+                <Icon name="sparkle" size={0.95} /> AI meal
+              </span>
+            </Chip>
             <Chip onClick={() => setScanning(true)}>
               <span class="row gap-xs">
                 <Icon name="scan" size={0.95} /> Scan
@@ -277,6 +284,7 @@ export function AddFood({ day, meal: initialMeal, tab: initialTab, scan, voice }
 
       {open && <FoodSheet item={open} day={day} meal={meal} onClose={() => setOpen(null)} />}
       {scanning && <ScannerSheet onCode={onCode} onClose={() => setScanning(false)} />}
+      {aiOpen && <AiMealSheet day={day} meal={meal} shared={shared} onClose={() => setAiOpen(false)} />}
       {listening && <VoiceSheet day={day} meal={meal} onClose={() => setListening(false)} />}
     </Page>
   )

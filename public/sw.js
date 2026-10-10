@@ -1,5 +1,5 @@
 // Forkful service worker: offline app shell and the food database.
-const SHELL = 'forkful-shell-v1'
+const SHELL = 'forkful-shell-v2'
 const DATA = 'forkful-data-v1'
 
 self.addEventListener('install', (e) => {
@@ -17,6 +17,24 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   const req = e.request
+
+  // Share target: a screenshot or text shared into Forkful from another app (Glovo, Wolt, gallery).
+  if (req.method === 'POST' && new URL(req.url).pathname === '/share-target') {
+    e.respondWith(
+      (async () => {
+        const form = await req.formData()
+        const c = await caches.open('forkful-share')
+        const file = form.get('image')
+        if (file && typeof file !== 'string') await c.put('/shared-image', new Response(file, { headers: { 'Content-Type': file.type || 'image/jpeg' } }))
+        const text = ['title', 'text', 'url'].map((k) => form.get(k)).filter((v) => typeof v === 'string' && v.trim()).join('
+')
+        if (text) await c.put('/shared-text', new Response(text))
+        return Response.redirect(new URL('/#/add?ai=1&shared=1', self.location.origin).href, 303)
+      })(),
+    )
+    return
+  }
+
   if (req.method !== 'GET') return
   const url = new URL(req.url)
   if (url.origin !== location.origin) return

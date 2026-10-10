@@ -122,7 +122,7 @@ export function FoodSheet({ item, day, meal, entry, onClose, onPick, pickLabel =
           <h2 style={{ fontSize: '1.15rem' }}>{food.name}</h2>
           <div class="small muted">
             {food.brand && <span>{food.brand} · </span>}
-            {food.source === 'usda' ? 'USDA database' : food.source === 'off' ? `Open Food Facts${food.barcode ? ` · ${food.barcode}` : ''}` : food.source === 'recipe' ? 'My recipe' : food.source === 'quick' ? 'Quick add' : 'My food'}
+            {food.source === 'usda' ? 'USDA database' : food.source === 'off' ? `Open Food Facts${food.barcode ? ` · ${food.barcode}` : ''}` : food.source === 'recipe' ? 'My recipe' : food.source === 'quick' ? 'Quick add' : food.source === 'ai' ? 'AI estimate' : 'My food'}
           </div>
         </div>
       </div>

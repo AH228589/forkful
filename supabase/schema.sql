@@ -47,3 +47,20 @@ create policy "photos: read own" on storage.objects for select to authenticated 
 create policy "photos: insert own" on storage.objects for insert to authenticated with check (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
 create policy "photos: update own" on storage.objects for update to authenticated using (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
 create policy "photos: delete own" on storage.objects for delete to authenticated using (bucket_id = 'photos' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- AI meal scans: per-user daily counter so a leaked link can't run up the API bill.
+create table if not exists public.ai_usage (
+  user_id uuid not null references auth.users (id) on delete cascade,
+  day date not null,
+  count int not null default 0,
+  primary key (user_id, day)
+);
+alter table public.ai_usage enable row level security; -- no policies: only the service role reads or writes it
+
+create or replace function public.ai_bump(uid uuid) returns int
+language sql security definer set search_path = public as $$
+  insert into public.ai_usage (user_id, day, count) values (uid, current_date, 1)
+  on conflict (user_id, day) do update set count = ai_usage.count + 1
+  returning count
+$$;
+revoke execute on function public.ai_bump(uuid) from public, anon, authenticated;
