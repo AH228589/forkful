@@ -5,7 +5,7 @@ import { Sheet } from './ui'
 type Detector = { detect: (src: HTMLVideoElement) => Promise<{ rawValue: string }[]> }
 const FORMATS = ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39', 'itf', 'qr_code']
 
-async function makeDetector(): Promise<Detector> {
+export async function makeDetector(): Promise<Detector> {
   const Native = (window as unknown as { BarcodeDetector?: { new (o: unknown): Detector; getSupportedFormats(): Promise<string[]> } }).BarcodeDetector
   if (Native) {
     try {

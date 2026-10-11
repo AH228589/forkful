@@ -91,7 +91,10 @@
 }
 
 html {
-  font-size: clamp(93.75%, 0.85rem + 0.45vw, 106.25%);
+  /* never below the browser default, or iPhones zoom in whenever a text field is focused */
+  font-size: clamp(100%, 0.9rem + 0.4vw, 106.25%);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html,

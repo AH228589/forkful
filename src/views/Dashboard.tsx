@@ -2,6 +2,7 @@ import { useEffect, useState } from 'preact/hooks'
 import { LineChart } from '../components/charts'
 import { Icon, Logo } from '../components/Icon'
 import { AccountBanner } from '../components/Account'
+import { InstallHint } from '../components/InstallHint'
 import { Bar, Card, Ring } from '../components/ui'
 import { addDays, dayKey, fmtDuration, fmtShort, parseDay, today } from '../lib/dates'
 import { colLabel, colUnit, colValue, daySummary, exerciseMinutes, nutrientGoal } from '../lib/goals'
@@ -78,6 +79,7 @@ export function Dashboard() {
         {p.name ? `, ${p.name}` : ''}
       </h1>
 
+      <InstallHint />
       <AccountBanner />
 
       <button class="search" style={{ width: '100%', marginBottom: '0.9rem' }} onClick={() => go(`/add?day=${t}&meal=${defaultMeal()}`)}>

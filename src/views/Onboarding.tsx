@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks'
 import { Icon, Logo } from '../components/Icon'
 import { accountSheet, cloudAvailable } from '../lib/account'
+import { InstallHint } from '../components/InstallHint'
 import { Field, Num, Seg } from '../components/ui'
 import { today } from '../lib/dates'
 import { ACTIVITY, calcGoal, maintenance } from '../lib/goals'
@@ -76,6 +77,7 @@ export function Onboarding() {
             </div>
             <h1>Welcome to Forkful</h1>
             <p class="muted">Track meals, calories, macros, water, exercise and weight. Every feature is free, and a free account keeps your progress backed up.</p>
+            <InstallHint />
             {cloudAvailable && (
               <button class="btn outline block" style={{ marginBottom: '1rem' }} onClick={() => (accountSheet.value = 'signin')}>
                 <Icon name="user" size={1} /> I already have an account
