@@ -59,7 +59,7 @@
   "isChromeOSOnly": false,
   "isMetaQuest": false,
   "fullScopeUrl": "https://forkful-pink.vercel.app/",
-  "minSdkVersion": 21,
+  "minSdkVersion": 24,
   "shareTarget": {
     "action": "https://forkful-pink.vercel.app/share-target",
     "method": "POST",
