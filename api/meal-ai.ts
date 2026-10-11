@@ -90,7 +90,8 @@ async function ask(model: string, key: string, image: string, mediaType: string,
       contents: [{ role: 'user', parts }],
       generationConfig: { responseMimeType: 'application/json', responseSchema: SCHEMA, thinkingConfig: { thinkingLevel: 'LOW' } },
     }),
-    signal: AbortSignal.timeout(55000),
+    // a stalled model hands over to the next one instead of making you wait a minute
+    signal: AbortSignal.timeout(25000),
   })
   return { status: res.status, body: (await res.json().catch(() => ({}))) as GeminiResponse }
 }
@@ -125,11 +126,16 @@ export async function POST(req: Request): Promise<Response> {
   if ((used as number) > DAILY_LIMIT) return json(429, { error: `You've used today's ${DAILY_LIMIT} AI scans. They reset tomorrow.` })
 
   let last = ''
+  // what each model attempt did, returned for troubleshooting slow or failed scans
+  const tries: { model: string; status: number | string; ms: number }[] = []
   for (const model of MODELS) {
     let r: { status: number; body: GeminiResponse }
+    const t0 = Date.now()
     try {
       r = await ask(model, gemini, image, mediaType, text)
+      tries.push({ model, status: r.status, ms: Date.now() - t0 })
     } catch {
+      tries.push({ model, status: 'timeout', ms: Date.now() - t0 })
       last = 'The AI took too long to answer.'
       continue
     }
@@ -157,7 +163,7 @@ export async function POST(req: Request): Promise<Response> {
       last = cand?.finishReason && cand.finishReason !== 'STOP' ? `The AI stopped early (${cand.finishReason}).` : 'The AI answer was incomplete.'
       continue
     }
-    return json(200, { ...parsed, used, limit: DAILY_LIMIT, model })
+    return json(200, { ...parsed, used, limit: DAILY_LIMIT, model, tries })
   }
-  return json(502, { error: `${last || 'The AI is unavailable right now.'} Try again.` })
+  return json(502, { error: `${last || 'The AI is unavailable right now.'} Try again.`, tries })
 }
