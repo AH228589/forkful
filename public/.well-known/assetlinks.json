@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "dev.ahristov.forkful",
+      "sha256_cert_fingerprints": ["EA:69:2B:AD:70:1A:C4:A2:A7:06:32:96:E3:E2:FB:07:BF:A0:A4:22:A9:D0:F2:51:B0:3E:04:4C:37:C2:EE:9B"]
+    }
+  }
+]

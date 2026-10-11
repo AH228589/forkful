@@ -11,3 +11,7 @@ dist
 .agents
 .claude
 skills-lock.json
+
+# Android signing key and its passwords: keep local, back up separately
+android/*.keystore
+android/keystore.local.json

@@ -1,5 +1,5 @@
 // Forkful service worker: offline app shell and the food database.
-const SHELL = 'forkful-shell-v2'
+const SHELL = 'forkful-shell-v3'
 const DATA = 'forkful-data-v1'
 
 self.addEventListener('install', (e) => {
@@ -62,8 +62,11 @@ self.addEventListener('fetch', (e) => {
     e.respondWith(
       fetch(req)
         .then((res) => {
-          const copy = res.clone()
-          caches.open(SHELL).then((c) => c.put('/index.html', copy))
+          // only keep real app pages as the offline shell (not downloads such as /forkful.apk)
+          if (res.ok && (res.headers.get('content-type') || '').includes('text/html')) {
+            const copy = res.clone()
+            caches.open(SHELL).then((c) => c.put('/index.html', copy))
+          }
           return res
         })
         .catch(() => caches.match('/index.html')),

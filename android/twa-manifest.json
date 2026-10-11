@@ -1,0 +1,90 @@
+{
+  "packageId": "dev.ahristov.forkful",
+  "host": "forkful-pink.vercel.app",
+  "name": "Forkful",
+  "launcherName": "Forkful",
+  "display": "standalone",
+  "themeColor": "#12A150",
+  "themeColorDark": "#000000",
+  "navigationColor": "#F3F5F2",
+  "navigationColorDark": "#0C100D",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#F3F5F2",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://forkful-pink.vercel.app/icon-512.png",
+  "maskableIconUrl": "https://forkful-pink.vercel.app/icon-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:\\Users\\Aleksandar\\Desktop\\forkful\\android\\forkful-release.keystore",
+    "alias": "forkful"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [
+    {
+      "name": "AI meal",
+      "shortName": "AI meal",
+      "url": "https://forkful-pink.vercel.app/#/add?ai=1",
+      "chosenIconUrl": "https://forkful-pink.vercel.app/icon-192.png"
+    },
+    {
+      "name": "Log food",
+      "shortName": "Log food",
+      "url": "https://forkful-pink.vercel.app/#/add",
+      "chosenIconUrl": "https://forkful-pink.vercel.app/icon-192.png"
+    },
+    {
+      "name": "Scan barcode",
+      "shortName": "Scan barcode",
+      "url": "https://forkful-pink.vercel.app/#/add?scan=1",
+      "chosenIconUrl": "https://forkful-pink.vercel.app/icon-192.png"
+    },
+    {
+      "name": "Diary",
+      "shortName": "Diary",
+      "url": "https://forkful-pink.vercel.app/#/diary",
+      "chosenIconUrl": "https://forkful-pink.vercel.app/icon-192.png"
+    }
+  ],
+  "generatorApp": "unknown",
+  "webManifestUrl": "https://forkful-pink.vercel.app/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://forkful-pink.vercel.app/",
+  "minSdkVersion": 21,
+  "shareTarget": {
+    "action": "https://forkful-pink.vercel.app/share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "image",
+          "accept": [
+            "image/*"
+          ]
+        }
+      ]
+    }
+  },
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": "",
+  "displayOverride": [],
+  "appVersion": "1.0.0"
+}
