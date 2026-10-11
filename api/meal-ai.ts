@@ -6,7 +6,7 @@ import { z } from 'zod'
 
 const DAILY_LIMIT = 60
 // Tried in order: when the free tier is busy or rate limited on one model, the next one answers.
-const MODELS = (process.env.AI_MODELS || 'gemini-3.8-flash,gemini-3.6-flash,gemini-3.5-flash-lite').split(',').map((m) => m.trim())
+const MODELS = (process.env.AI_MODELS || 'gemini-3.6-flash,gemini-3.5-flash-lite,gemini-3.8-flash').split(',').map((m) => m.trim())
 
 const json = (status: number, body: Record<string, unknown>) => Response.json(body, { status })
 
