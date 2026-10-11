@@ -15,3 +15,6 @@ skills-lock.json
 # Android signing key and its passwords: keep local, back up separately
 android/*.keystore
 android/keystore.local.json
+
+# APK signature v4 side file from apksigner
+public/*.idsig
